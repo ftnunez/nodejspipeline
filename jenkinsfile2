@@ -2,15 +2,15 @@ node {
    def gitcommit
    stage('Verificacion SCM') {
      checkout scm
-     powershell "git rev-parse --short HEAD > .git/commit-id"
+     bat "git rev-parse --short HEAD > .git/commit-id"
      gitcommit = readFile('.git/commit-id').trim()
    }
    stage('test') {
      def contenedortest = docker.image('node:4.6')
      contenedortest.pull()
      contenedortest.inside {
-       powershell 'npm install --only=dev'
-       powershell 'npm test'
+       bat 'npm install --only=dev'
+       bat 'npm test'
      }
    }                   
    stage('Docker Build & Push') {
