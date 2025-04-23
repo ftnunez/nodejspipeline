@@ -1,5 +1,8 @@
 node {
    def gitcommit
+   agent {
+        label 'agent1'
+   }
    stage('Verificación SCM') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"                        
